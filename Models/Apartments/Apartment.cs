@@ -1,6 +1,7 @@
 ﻿using PaparaBootcampFinalHomework.Models.Payments;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using PaparaBootcampFinalHomework.Models.Users;
 
 namespace PaparaBootcampFinalHomework.Models.Apartments
 {
@@ -15,6 +16,7 @@ namespace PaparaBootcampFinalHomework.Models.Apartments
         public string OwnerTenant { get; set; }
         public int UserId { get; set; }
         [ForeignKey("UserId")]
+        public User User { get; set; }
         public ICollection<Payment> Payments { get; set; }
     }
 }

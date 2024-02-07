@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
+using PaparaBootcampFinalHomework.Shared;
 
 namespace PaparaBootcampFinalHomework.Models.UnitOfWorks
 {

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Models.Shared;
-using PaparaBootcampFinalHomework;
+using PaparaBootcampFinalHomework.Models.Tokens;
+using PaparaBootcampFinalHomework.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -17,6 +18,9 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddAutoMapper(typeof(Program)); 
 builder.Services.DIContainers();
+builder.Services.AddIdentity<AppAdmin, AppRole>().AddEntityFrameworkStores<AppDbContext>();
+builder.Services.AddScoped<IdentityService>();
+builder.Services.AddScoped<TokenService>();
 
 var app = builder.Build();
 

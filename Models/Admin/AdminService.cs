@@ -9,7 +9,7 @@ namespace PaparaBootcampFinalHomework.Models.Admin
     {
         private readonly IAdminRepository _adminRepository;
 
-   
+
 
 
     }

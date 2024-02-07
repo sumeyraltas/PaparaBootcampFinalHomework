@@ -14,7 +14,7 @@ namespace PaparaBootcampFinalHomework.Models.Apartments
         public int ApartmentNumber { get; set; }
         public string OwnerTenant { get; set; }
         public int UserId { get; set; }
-        [ForeignKey("UserId")]
+  
         public ICollection<Payment> Payments { get; set; }
     }
 }

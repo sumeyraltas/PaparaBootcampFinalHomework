@@ -5,7 +5,7 @@
 namespace PaparaBootcampFinalHomework.Migrations
 {
     /// <inheritdoc />
-    public partial class second : Migration
+    public partial class @new : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

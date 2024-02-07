@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure;
+using Microsoft.AspNetCore.Mvc;
 using PaparaBootcampFinalHomework.Models.Payments;
 
 namespace PaparaBootcampFinalHomework.Controllers
@@ -6,89 +7,84 @@ namespace PaparaBootcampFinalHomework.Controllers
     // [Authorize]
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class PaymentController : ControllerBase
+    public class PaymentController(IPaymentService paymentService) : ControllerBase
     {
-        private readonly IPaymentService _paymentService;
+        private readonly IPaymentService _paymentService = paymentService;
 
-        public PaymentController(IPaymentService paymentService)
-        {
-            _paymentService = paymentService;
-        }
         //[Authorize(Roles = "Admin")]
         [HttpPost("monthly-bills")]
         public IActionResult AddMonthlyBills(PaymentDTO paymentDTO)
         {
-            try
+
+            var response = _paymentService.AddMonthlyBills(paymentDTO);
+            if (response.AnyError)
             {
-                _paymentService.AddMonthlyBills(paymentDTO);
-                return Ok("Monthly bills added successfully.");
+                return BadRequest(response);
             }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"An error occurred: {ex.Message}");
-            }
+            return Created("", response);
+
+
+
         }
         //[Authorize(Roles = "Admin")]
         [HttpGet("monthly-bills/{billingMonth}")]
         public IActionResult GetMonthlyBillsByMonth(DateTime billingMonth)
         {
-            try
+
+            var response = _paymentService.GetMonthlyBillsByMonth(billingMonth);
+            if (response.AnyError)
             {
-                var monthlyBills = _paymentService.GetMonthlyBillsByMonth(billingMonth);
-                if (monthlyBills != null)
-                    return Ok(monthlyBills);
-                else
-                    return NotFound("No monthly bills found for the given month.");
+                return BadRequest(response);
             }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"An error occurred: {ex.Message}");
-            }
+            if (response != null)
+                return Ok(response);
+            else
+                return NotFound("No monthly bills found for the given month.");
+
         }
 
 
         [HttpGet("user-payments/{userId}")]
         public IActionResult GetUserPayments(int userId)
         {
-            try
-            {
-                var userPayments = _paymentService.GetUserPayments(userId);
-                if (userPayments != null)
-                    return Ok(userPayments);
-                else
-                    return NotFound("No payments found for the user.");
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"An error occurred: {ex.Message}");
-            }
+
+            var userPayments = _paymentService.GetUserPayments(userId);
+
+
+            if (userPayments != null)
+                return Ok(userPayments);
+            else
+                return NotFound("No payments found for the user.");
+
         }
 
         [HttpGet("building-expenses")]
         public IActionResult GetBuildingExpenses()
         {
-            try
-            {
-                var buildingExpenses = _paymentService.GetBuildingExpenses();
-                return Ok(buildingExpenses);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"An error occurred: {ex.Message}");
-            }
+
+            var buildingExpenses = _paymentService.GetBuildingExpenses();
+
+            return Ok(buildingExpenses);
+
         }
         [HttpPost("add-monthly-bills-for-all-apartments")]
         public IActionResult AddMonthlyBillsForAllApartments([FromBody] PaymentDTO request)
         {
-            var result = _paymentService.AddMonthlyBillsForAllApartments(request);
-            return Ok(result);
+            var response = _paymentService.AddMonthlyBillsForAllApartments(request);
+
+            return Ok(response);
         }
 
         [HttpPost("add-monthly-bills-for-one-apartment")]
         public IActionResult AddMonthlyBillsForOneApartment([FromBody] PaymentDTO request)
         {
-            var result = _paymentService.AddMonthlyBillsForOneApartment(request);
-            return Ok(result);
+            var response = _paymentService.AddMonthlyBillsForOneApartment(request);
+
+            if (response.AnyError)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
 
     }

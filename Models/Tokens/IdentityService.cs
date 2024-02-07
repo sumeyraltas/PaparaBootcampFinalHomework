@@ -6,26 +6,26 @@ using PaparaBootcampFinalHomework.Models.Admin;
 namespace PaparaBootcampFinalHomework.Models.Tokens
 {
     public class IdentityService(
-      UserManager<AppUser> userManager,
+      UserManager<AppAdmin> userManager,
       RoleManager<AppRole> roleManager,
-      SignInManager<AppUser> signInManager
+      SignInManager<AppAdmin> signInManager
      )
     {
-        public UserManager<AppUser> UserManager { get; set; } = userManager;
+        public UserManager<AppAdmin> UserManager { get; set; } = userManager;
         public RoleManager<AppRole> RoleManager { get; set; } = roleManager;
 
-        public SignInManager<AppUser> SignInManager { get; set; } = signInManager;
+        public SignInManager<AppAdmin> SignInManager { get; set; } = signInManager;
 
 
-        public async Task<ResponseDto<Guid?>> CreateUser(AdminCreateRequestDto request)
+        public async Task<ResponseDto<Guid?>> CreateAdmin(AdminCreateRequestDto request)
         {
-            var appUser = new AppUser
+            var appUser = new AppAdmin
             {
                 UserName = request.UserName,
-                Password = request.Password
+                PasswordHash = request.Password
             };
 
-
+            //   roleManager.AddClaimAsync("ADMIN");
             var result = await userManager.CreateAsync(appUser, request.Password);
 
             if (!result.Succeeded)
@@ -43,9 +43,10 @@ namespace PaparaBootcampFinalHomework.Models.Tokens
         {
             var appRole = new AppRole
             {
-                Name = request.RoleName
-            };
+                Name = request.RoleName,
+                // Id = request.UserId
 
+            };
 
             var hasRole = await roleManager.RoleExistsAsync(appRole.Name);
 
@@ -85,9 +86,5 @@ namespace PaparaBootcampFinalHomework.Models.Tokens
             return ResponseDto<string>.Success(string.Empty);
         }
 
-        internal Task<object?> CreateUser(UserCreateRequestDto request)
-        {
-            throw new NotImplementedException();
-        }
     }
-    }
+}

@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Protocols.WSIdentity;
 using PaparaBootcampFinalHomework.Models.Tokens;
 using TokenService = PaparaBootcampFinalHomework.Models.Tokens.TokenService;
 using Microsoft.AspNetCore.Http;
+using PaparaBootcampFinalHomework.Models.Admin;
 namespace PaparaBootcampFinalHomework.Controllers
 {
     [Route("api/[controller]/[action]")]
@@ -10,15 +11,14 @@ namespace PaparaBootcampFinalHomework.Controllers
     public class AdminController(IdentityService identityService, TokenService tokenService) : ControllerBase
     {
         [HttpPost]
-        public async Task<IActionResult> CreateUser(UserCreateRequestDto request)
+        public async Task<IActionResult> CreateAdmin(AdminCreateRequestDto request)
         {
-            var response = await identityService.CreateUser(request);
-            /*
-                 if (response.AnyError)
-             {
-                 return BadRequest(response);
-             }
-             */
+            var response = await identityService.CreateAdmin(request);
+
+            if (response.AnyError)
+            {
+                return BadRequest(response);
+            }
 
             return Created("", response);
         }
@@ -27,12 +27,11 @@ namespace PaparaBootcampFinalHomework.Controllers
         public async Task<IActionResult> CreateToken(TokenCreateRequestDTO request)
         {
             var response = await tokenService.Create(request);
-            /*
-              if (response.AnyError)
-          {
-              return BadRequest(response);
-          }
-          */
+
+            if (response.AnyError)
+            {
+                return BadRequest(response);
+            }
 
             return Ok(response);
         }
@@ -41,12 +40,12 @@ namespace PaparaBootcampFinalHomework.Controllers
         public async Task<IActionResult> AssignRoleToUser(RoleCreateRequestDto request)
         {
             var response = await identityService.CreateRole(request);
-            /*
-                if (response.AnyError)
+
+            if (response.AnyError)
             {
                 return BadRequest(response);
             }
-            */
+
             return Created("", response);
         }
     }

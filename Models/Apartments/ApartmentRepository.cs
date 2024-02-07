@@ -1,4 +1,6 @@
 ﻿
+using PaparaBootcampFinalHomework.Shared;
+
 namespace PaparaBootcampFinalHomework.Models.Apartments
 {
     public class ApartmentRepository(AppDbContext context) : IApartmentRepository

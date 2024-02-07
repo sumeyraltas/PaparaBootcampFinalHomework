@@ -1,4 +1,6 @@
-﻿namespace PaparaBootcampFinalHomework.Models.Payments
+﻿using PaparaBootcampFinalHomework.Shared;
+
+namespace PaparaBootcampFinalHomework.Models.Payments
 {
     public class PaymentRepository : IPaymentRepository
     {

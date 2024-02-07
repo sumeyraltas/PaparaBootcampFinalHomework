@@ -3,6 +3,6 @@
     public class RoleCreateRequestDto
     {
         public string RoleName { get; set; } = default!;
-        public string UserId { get; internal set; }
+        public string UserId { get;  set; } = default!;
     }
 }

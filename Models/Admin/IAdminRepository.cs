@@ -7,14 +7,9 @@ namespace PaparaBootcampFinalHomework.Models.Admin
 {
     public interface IAdminRepository
     {
-         Apartment AddApartments(Apartment apartment);
-
-
-         User AddUsers(User user);
+         
         void AssignUsersToApartments(List<UserApartmentDTO> userApartments);
 
 
-         Payment AddPayments(Payment payment);
-       
     }
 }

@@ -6,24 +6,19 @@ namespace PaparaBootcampFinalHomework.Controllers
 {    //[Authorize]
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class ApartmentController : ControllerBase
+    public class ApartmentController(IApartmentService apartmentService) : ControllerBase
     {
-        private readonly IApartmentService _apartmentService;
+        private readonly IApartmentService _apartmentService = apartmentService;
 
-        public ApartmentController(IApartmentService apartmentService)
-        {
-            _apartmentService = apartmentService;
-        }
         //[Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult AddApartment(ApartmentDTO apartmentDTO)
         {
-
             return Ok(_apartmentService.AddApartment(apartmentDTO));
         }
         //[Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
-        public IActionResult UpdatApartment( ApartmentDTO apartmentDTO)
+        public IActionResult UpdatApartment(ApartmentDTO apartmentDTO)
         {
             _apartmentService.UpdateApartment(apartmentDTO);
             return Ok();

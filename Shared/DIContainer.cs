@@ -2,6 +2,7 @@
 using PaparaBootcampFinalHomework.Models.Admin;
 using PaparaBootcampFinalHomework.Models.Apartments;
 using PaparaBootcampFinalHomework.Models.Payments;
+using PaparaBootcampFinalHomework.Models.Tokens;
 using PaparaBootcampFinalHomework.Models.UnitOfWorks;
 using PaparaBootcampFinalHomework.Models.Users;
 
@@ -16,6 +17,7 @@ namespace Models.Shared
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAdminRepository, AdminRepository>();
             services.AddScoped<IPaymentRepository, PaymentRepository>();
+
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace PaparaBootcampFinalHomework.Models.Tokens
 {
-   public class TokenService(IConfiguration configuration, UserManager<AppUser> userManager)
+    public class TokenService(IConfiguration configuration, UserManager<AppAdmin> userManager)
     {
         public async Task<ResponseDto<TokenCreateResponseDto>> Create(TokenCreateRequestDTO request)
         {
@@ -57,7 +57,6 @@ namespace PaparaBootcampFinalHomework.Models.Tokens
                 claimList.Add(new Claim(claim.Type, claim.Value));
             }
 
-
             claimList.Add(userIdAsClaim);
             claimList.Add(userNameAsClaim);
             claimList.Add(idAsClaim);
@@ -82,5 +81,5 @@ namespace PaparaBootcampFinalHomework.Models.Tokens
             return ResponseDto<TokenCreateResponseDto>.Success(responseDto);
         }
     }
-    
+
 }

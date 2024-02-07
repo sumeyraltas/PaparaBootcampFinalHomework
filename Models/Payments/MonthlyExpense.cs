@@ -8,5 +8,8 @@
         public decimal WaterBill { get; set; }
         public decimal GasBill { get; set; }
         public bool IsPaid { get; set; }
+        public int Year { get; internal set; }
+        public int Month { get; internal set; }
+        public ICollection<Payment> Payments { get; internal set; }
     }
 }
