@@ -159,6 +159,9 @@ namespace PaparaBootcampFinalHomework.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
                     b.ToTable("Apartments");
                 });
 
@@ -332,7 +335,7 @@ namespace PaparaBootcampFinalHomework.Migrations
                     b.ToTable("AspNetRoles", (string)null);
                 });
 
-            modelBuilder.Entity("PaparaBootcampFinalHomework.Models.Users.User", b =>
+            modelBuilder.Entity("PaparaBootcampFinalHomework.Models.Users.Resident", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -340,14 +343,7 @@ namespace PaparaBootcampFinalHomework.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ApartmentId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IdentityNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -364,9 +360,6 @@ namespace PaparaBootcampFinalHomework.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApartmentId")
-                        .IsUnique();
 
                     b.ToTable("Userss");
                 });
@@ -422,6 +415,17 @@ namespace PaparaBootcampFinalHomework.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("PaparaBootcampFinalHomework.Models.Apartments.Apartment", b =>
+                {
+                    b.HasOne("PaparaBootcampFinalHomework.Models.Users.Resident", "User")
+                        .WithOne("Apartment")
+                        .HasForeignKey("PaparaBootcampFinalHomework.Models.Apartments.Apartment", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("PaparaBootcampFinalHomework.Models.Payments.Payment", b =>
                 {
                     b.HasOne("PaparaBootcampFinalHomework.Models.Apartments.Apartment", "Apartment")
@@ -430,7 +434,7 @@ namespace PaparaBootcampFinalHomework.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PaparaBootcampFinalHomework.Models.Users.User", "User")
+                    b.HasOne("PaparaBootcampFinalHomework.Models.Users.Resident", "User")
                         .WithMany("Payments")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -449,23 +453,9 @@ namespace PaparaBootcampFinalHomework.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("PaparaBootcampFinalHomework.Models.Users.User", b =>
-                {
-                    b.HasOne("PaparaBootcampFinalHomework.Models.Apartments.Apartment", "Apartment")
-                        .WithOne("User")
-                        .HasForeignKey("PaparaBootcampFinalHomework.Models.Users.User", "ApartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Apartment");
-                });
-
             modelBuilder.Entity("PaparaBootcampFinalHomework.Models.Apartments.Apartment", b =>
                 {
                     b.Navigation("Payments");
-
-                    b.Navigation("User")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("PaparaBootcampFinalHomework.Models.Payments.MonthlyExpense", b =>
@@ -473,8 +463,11 @@ namespace PaparaBootcampFinalHomework.Migrations
                     b.Navigation("Payments");
                 });
 
-            modelBuilder.Entity("PaparaBootcampFinalHomework.Models.Users.User", b =>
+            modelBuilder.Entity("PaparaBootcampFinalHomework.Models.Users.Resident", b =>
                 {
+                    b.Navigation("Apartment")
+                        .IsRequired();
+
                     b.Navigation("Payments");
                 });
 #pragma warning restore 612, 618

@@ -100,7 +100,7 @@ namespace PaparaBootcampFinalHomework.Models.Payments
             return buildingExpenses;
         }
 
-        public ResponseDto<PaymentDTO> GetMonthlyBillsByMonth(DateTime billingMonth)
+        public ResponseDto<int> GetMonthlyBillsByMonth(DateTime billingMonth)
         {
             using var transaction = _unitOfWork.BeginTransaction();
 
@@ -109,12 +109,15 @@ namespace PaparaBootcampFinalHomework.Models.Payments
             _unitOfWork.Commit();
             transaction.Commit(); 
             
-            return ResponseDto<PaymentDTO>.Success(monthlyBills);
+            return ResponseDto<int>.Success(monthlyBills.Id);
         }
 
         public List<PaymentDTO> GetUserPayments(int userId)
         {
+            using var transaction = _unitOfWork.BeginTransaction();
             var userPayments = _paymentRepository.GetUserPayments(userId);
+            _unitOfWork.Commit();
+            transaction.Commit();
             return _mapper.Map<List<PaymentDTO>>(userPayments);
         }
    

@@ -12,16 +12,17 @@ namespace PaparaBootcampFinalHomework.Shared
     {
         // : IdentityDbContext<AppUser, AppRole, Guid>(options)
         public DbSet<Apartment> Apartments { get; set; }
-        public DbSet<User> Userss { get; set; }
+        public DbSet<Resident> Userss { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<MonthlyExpense> MonthlyExpenses { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-          base.OnModelCreating(modelBuilder);
-        
-        //    modelBuilder.Entity<IdentityUserLogin<Guid>>().HasNoKey();
+            //???  base.OnModelCreating(modelBuilder);
+
+            //    modelBuilder.Entity<IdentityUserLogin<Guid>>().HasNoKey();
+            base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Payment>()
         .Property(p => p.Amount)
@@ -39,10 +40,10 @@ namespace PaparaBootcampFinalHomework.Shared
                 Property(p => p.GasBill)
         .HasColumnType("decimal(18,2)");
             //one to one
-            modelBuilder.Entity<Apartment>()
-               .HasOne(a => a.User)
-               .WithOne(u => u.Apartment)
-               .HasForeignKey<User>(u => u.ApartmentId);
+            modelBuilder.Entity<Resident>()
+               .HasOne(a => a.Apartment)
+               .WithOne(u => u.User)
+               .HasForeignKey<Apartment>(a => a.UserId);
             //one to many bir user çok ödeme
             modelBuilder.Entity<Payment>()
                 .HasOne(p => p.User)

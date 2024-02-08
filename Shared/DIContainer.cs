@@ -14,7 +14,7 @@ namespace Models.Shared
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IApartmentRepository, ApartmentRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IResidentRepository, ResidentRepository>();
             services.AddScoped<IAdminRepository, AdminRepository>();
             services.AddScoped<IPaymentRepository, PaymentRepository>();
 

@@ -9,7 +9,7 @@ namespace PaparaBootcampFinalHomework.Shared
     {
         public DTOProfile()
         {
-            CreateMap<User, UserDTO>();
+            CreateMap<Resident, ResidentDTO>();
             CreateMap<Apartment, ApartmentDTO>();
             CreateMap<Payment, PaymentDTO>();   
         }

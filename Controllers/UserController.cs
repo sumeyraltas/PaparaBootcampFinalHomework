@@ -8,13 +8,13 @@ namespace PaparaBootcampFinalHomework.Controllers
     //[Authorize]
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class UserController(IUserService userService) : ControllerBase
+    public class UserController(IResidentService userService) : ControllerBase
     {
-        private readonly IUserService _userService = userService;
+        private readonly IResidentService _userService = userService;
 
         //[Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult AddUser(UserDTO userDto)
+        public IActionResult AddUser(ResidentDTO userDto)
         {
             var response = _userService.AddUser(userDto);
             if (response.AnyError)
@@ -25,7 +25,7 @@ namespace PaparaBootcampFinalHomework.Controllers
         }
         //[Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
-        public IActionResult UpdateUser(int id, UserDTO userDto)
+        public IActionResult UpdateUser(int id, ResidentDTO userDto)
         {
             _userService.UpdateUser(userDto);
 

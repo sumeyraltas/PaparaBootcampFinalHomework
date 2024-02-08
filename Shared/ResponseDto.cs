@@ -31,8 +31,5 @@ public class ResponseDto<T>
         };
     }
 
-    internal static ResponseDto<PaymentDTO> Success(Payment monthlyBills)
-    {
-        throw new NotImplementedException();
-    }
+   
 }

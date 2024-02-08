@@ -5,33 +5,33 @@ using PaparaBootcampFinalHomework.Models.UnitOfWorks;
 namespace PaparaBootcampFinalHomework.Models.Users
 {
 
-        public class UserService : IUserService
+        public class ResidentService : IResidentService
         {
-            private readonly IUserRepository _userRepository;
+            private readonly IResidentRepository _userRepository;
             private readonly IMapper _mapper;
             private readonly IUnitOfWork _unitOfWork;
 
-            public UserService(IUserRepository userRepository, IMapper mapper, IUnitOfWork unitOfWork)
+            public ResidentService(IResidentRepository userRepository, IMapper mapper, IUnitOfWork unitOfWork)
             {
                 _userRepository = userRepository;
                 _mapper = mapper;
                 _unitOfWork = unitOfWork;
             }
 
-            public ResponseDto<List<UserDTO>> GetAllUser()
+            public ResponseDto<List<ResidentDTO>> GetAllUser()
             {
                 using var transaction = _unitOfWork.BeginTransaction();
 
                 var userList = _userRepository.GetAllUser();
-                var userListWithDto = _mapper.Map<List<UserDTO>>(userList);
+                var userListWithDto = _mapper.Map<List<ResidentDTO>>(userList);
 
                 _unitOfWork.Commit();
                 transaction.Commit();
 
-                return ResponseDto<List<UserDTO>>.Success(userListWithDto);
+                return ResponseDto<List<ResidentDTO>>.Success(userListWithDto);
             }
 
-            public UserDTO GetByIdUser(int id)
+            public ResidentDTO GetByIdUser(int id)
             {
                 using var transaction = _unitOfWork.BeginTransaction();
 
@@ -40,7 +40,7 @@ namespace PaparaBootcampFinalHomework.Models.Users
                 _unitOfWork.Commit();
                 transaction.Commit();
 
-                return _mapper.Map<UserDTO>(user);
+                return _mapper.Map<ResidentDTO>(user);
             }
 
             public void DeleteUser(int id)
@@ -53,11 +53,11 @@ namespace PaparaBootcampFinalHomework.Models.Users
                 transaction.Commit();
             }
 
-            public ResponseDto<int> AddUser(UserDTO request)
+            public ResponseDto<int> AddUser(ResidentDTO request)
             {
                 using var transaction = _unitOfWork.BeginTransaction();
 
-                var user = new User {  };
+                var user = new Resident {  };
                 _userRepository.AddUser(user);
 
                 _unitOfWork.Commit();
@@ -66,7 +66,7 @@ namespace PaparaBootcampFinalHomework.Models.Users
                 return ResponseDto<int>.Success(user.Id);
             }
 
-            public void UpdateUser(UserDTO request)
+            public void UpdateUser(ResidentDTO request)
             {
                 using var transaction = _unitOfWork.BeginTransaction();
 

@@ -4,12 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PaparaBootcampFinalHomework.Models.Users
 {
-    public class User
+    public class Resident
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string IdentityNumber { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
 
@@ -17,10 +16,10 @@ namespace PaparaBootcampFinalHomework.Models.Users
        // [ForeignKey("PaymentId")]
        // public Payment? Payment { get; set; }
     
-       // [ForeignKey("ApartmentId")]
+       //[ForeignKey("ApartmentId")]
         public Apartment Apartment { get; set; }
       
-        public int ApartmentId { get; set; }
+       // public int ApartmentId { get; set; }
        
 
      } 

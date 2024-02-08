@@ -9,7 +9,7 @@ namespace PaparaBootcampFinalHomework.Models.Payments
         public int Id { get; set; }
         public int ApartmentId { get; set; }
         public Apartment Apartment { get; set; }
-        public User User { get; set; }
+        public Resident User { get; set; }
         public int UserId { get; set; }
         public string CardCash { get; set; }
         public DateTime PaymentDate { get; set; }

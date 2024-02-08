@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Protocols.WSIdentity;
 using PaparaBootcampFinalHomework.Models.Tokens;
 using TokenService = PaparaBootcampFinalHomework.Models.Tokens.TokenService;
-using Microsoft.AspNetCore.Http;
 using PaparaBootcampFinalHomework.Models.Admin;
 namespace PaparaBootcampFinalHomework.Controllers
 {
