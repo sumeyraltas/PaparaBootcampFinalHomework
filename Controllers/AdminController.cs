@@ -2,6 +2,7 @@
 using PaparaBootcampFinalHomework.Models.Tokens;
 using TokenService = PaparaBootcampFinalHomework.Models.Tokens.TokenService;
 using PaparaBootcampFinalHomework.Models.Admin;
+using PaparaBootcampFinalHomework.Models.Tokens.DTOs;
 namespace PaparaBootcampFinalHomework.Controllers
 {
     [Route("api/[controller]/[action]")]

@@ -1,6 +1,7 @@
 ﻿
 using PaparaBootcampFinalHomework.Models.Admin;
 using PaparaBootcampFinalHomework.Models.Apartments;
+using PaparaBootcampFinalHomework.Models.MonthlyExpense;
 using PaparaBootcampFinalHomework.Models.Payments;
 using PaparaBootcampFinalHomework.Models.Tokens;
 using PaparaBootcampFinalHomework.Models.UnitOfWorks;
@@ -17,7 +18,12 @@ namespace Models.Shared
             services.AddScoped<IResidentRepository, ResidentRepository>();
             services.AddScoped<IAdminRepository, AdminRepository>();
             services.AddScoped<IPaymentRepository, PaymentRepository>();
-
+            services.AddScoped<IApartmentService, ApartmentService>();
+            services.AddScoped<IResidentService, ResidentService>();
+            services.AddScoped<IAdminService, AdminService>();
+            services.AddScoped<IPaymentService, PaymentService>();
+            services.AddScoped<IMonthlyExpenseRepository, MonthlyExpenseRepository>();
+            services.AddScoped<IMonthlyExpenseService, MonthlyExpenseService>();
         }
     }
 }

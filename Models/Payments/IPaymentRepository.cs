@@ -1,13 +1,14 @@
-﻿namespace PaparaBootcampFinalHomework.Models.Payments
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace PaparaBootcampFinalHomework.Models.Payments
 {
     public interface IPaymentRepository
     {
-        Payment AddMonthlyBills(Payment payment);
-        Payment GetMonthlyBillsByMonth(DateTime payment);
-        List<Payment> GetUserPayments(int userId);
-        //UserPayment
-       
-        //BuildingExpense,
-        List<MonthlyExpense> GetAllMonthlyExpenses();
+
+        List<Payment> GetMonthlyBillsByMonth(int payment);
+        List<Payment> GetUserPayments();
+        Payment AddPaymentBills(Payment payment);
+
+
     }
 }

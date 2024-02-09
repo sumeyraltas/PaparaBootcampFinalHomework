@@ -2,8 +2,8 @@
 {
     public class AdminCreateRequestDto
     {
-        public string UserName { get; set; } = default!;
-        public string Password { get; set; } = default!;
+        public required string UserName { get; set; } = default!;
+        public required string Password { get; set; } = default!;
 
     }
 }

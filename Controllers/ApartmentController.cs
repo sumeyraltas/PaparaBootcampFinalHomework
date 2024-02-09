@@ -18,7 +18,7 @@ namespace PaparaBootcampFinalHomework.Controllers
         }
         //[Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
-        public IActionResult UpdatApartment(ApartmentDTO apartmentDTO)
+        public IActionResult UpdateApartment(ApartmentDTO apartmentDTO)
         {
             _apartmentService.UpdateApartment(apartmentDTO);
             return Ok();

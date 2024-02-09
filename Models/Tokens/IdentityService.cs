@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Models.Shared.ResponseDto;
-using PaparaBootcampFinalHomework.Controllers;
 using PaparaBootcampFinalHomework.Models.Admin;
+using PaparaBootcampFinalHomework.Models.Tokens.DTOs;
 
 namespace PaparaBootcampFinalHomework.Models.Tokens
 {
@@ -37,6 +37,22 @@ namespace PaparaBootcampFinalHomework.Models.Tokens
 
             return ResponseDto<Guid?>.Success(appUser.Id);
 
+        }
+        public async Task EnsureAdminUserExists()
+        {
+            if (!await roleManager.RoleExistsAsync("ADMIN"))
+            {
+                var adminRole = new AppRole { Name = "ADMIN" };
+                await roleManager.CreateAsync(adminRole);
+            }
+
+            var adminUser = await userManager.FindByNameAsync("admin");
+            if (adminUser == null)
+            {
+                adminUser = new AppAdmin { UserName = "admin" };
+                await userManager.CreateAsync(adminUser, "Admin123."); 
+                await userManager.AddToRoleAsync(adminUser, "Admin");
+            }
         }
 
         public async Task<ResponseDto<string>> CreateRole(RoleCreateRequestDto request)

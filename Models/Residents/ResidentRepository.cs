@@ -8,32 +8,32 @@ namespace PaparaBootcampFinalHomework.Models.Users
         
         public List<Resident> GetAllUser()
         {
-            return _context.Userss.ToList();
+            return _context.Residents.ToList();
         }
 
         public Resident AddUser(Resident user)
         {
-            _context.Userss.Add(user);
+            _context.Residents.Add(user);
             return user;
         }
 
         public void UpdateUser(Resident user)
         {
-            _context.Userss.Update(user);
+            _context.Residents.Update(user);
         }
 
         public void DeleteUser(int id)
         {
-            var user = _context.Userss.Find(id);
+            var user = _context.Residents.Find(id);
             if (user != null)
             {
-                _context.Userss.Remove(user);
+                _context.Residents.Remove(user);
             }
         }
 
         public Resident GetByIdUser(int id)
         {
-            return _context.Userss.Find(id);
+            return _context.Residents.Find(id);
         }
         
     }

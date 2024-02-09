@@ -1,20 +1,18 @@
 ﻿using PaparaBootcampFinalHomework.Models.Payments;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
 
 namespace PaparaBootcampFinalHomework.Models.Apartments
 {
     public class ApartmentDTO
     {
-        public int Id { get; set; }
-        public string BlockInfo { get; set; }
-        public bool IsOccupied { get; set; }
-        public string Type { get; set; }
-        public int Floor { get; set; }
-        public int ApartmentNumber { get; set; }
-        public string OwnerTenant { get; set; }
-        public int UserId { get; set; }
+       // public int Id { get; set; }
+        public required string BlockInfo { get; set; }
+        public required bool IsOccupied { get; set; }
+        public string? Type { get; set; }
+        public required int Floor { get; set; }
+        public required int ApartmentNumber { get; set; }
+        public required string OwnerTenant { get; set; }
+        public required int ResidentId { get; set; }
   
-        public ICollection<Payment> Payments { get; set; }
+        //public ICollection<Payment> Payments { get; set; }
     }
 }

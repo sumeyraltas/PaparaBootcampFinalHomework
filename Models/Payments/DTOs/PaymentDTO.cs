@@ -1,7 +1,4 @@
-﻿using PaparaBootcampFinalHomework.Models.Apartments;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace PaparaBootcampFinalHomework.Models.Payments
+﻿namespace PaparaBootcampFinalHomework.Models.Payments.DTOs
 {
     public class PaymentDTO
     {

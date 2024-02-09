@@ -6,60 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PaparaBootcampFinalHomework.Migrations
 {
     /// <inheritdoc />
-    public partial class second : Migration
+    public partial class first : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Payments_Apartments_UserId",
-                table: "Payments");
-
-            migrationBuilder.DropTable(
-                name: "Users");
-
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_MonthlyExpenses",
-                table: "MonthlyExpenses");
-
-            migrationBuilder.AlterColumn<int>(
-                name: "UserId",
-                table: "Payments",
-                type: "int",
-                nullable: false,
-                defaultValue: 0,
-                oldClrType: typeof(int),
-                oldType: "int",
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<int>(
-                name: "Id",
-                table: "MonthlyExpenses",
-                type: "int",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "int")
-                .OldAnnotation("SqlServer:Identity", "1, 1");
-
-            migrationBuilder.AddColumn<int>(
-                name: "Year",
-                table: "MonthlyExpenses",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.AddColumn<int>(
-                name: "Month",
-                table: "MonthlyExpenses",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_MonthlyExpenses",
-                table: "MonthlyExpenses",
-                columns: new[] { "Year", "Month" });
-
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -100,7 +51,25 @@ namespace PaparaBootcampFinalHomework.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Userss",
+                name: "MonthlyExpenses",
+                columns: table => new
+                {
+                    Year = table.Column<int>(type: "int", nullable: false),
+                    Month = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    ExpenseMonth = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ElectricityBill = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    WaterBill = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    GasBill = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    IsPaid = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MonthlyExpenses", x => new { x.Year, x.Month });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Residents",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -112,7 +81,7 @@ namespace PaparaBootcampFinalHomework.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Userss", x => x.Id);
+                    table.PrimaryKey("PK_Residents", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -221,15 +190,73 @@ namespace PaparaBootcampFinalHomework.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Payments_Year_Month",
-                table: "Payments",
-                columns: new[] { "Year", "Month" });
+            migrationBuilder.CreateTable(
+                name: "Apartments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BlockInfo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsOccupied = table.Column<bool>(type: "bit", nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Floor = table.Column<int>(type: "int", nullable: false),
+                    ApartmentNumber = table.Column<int>(type: "int", nullable: false),
+                    OwnerTenant = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ResidentId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Apartments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Apartments_Residents_ResidentId",
+                        column: x => x.ResidentId,
+                        principalTable: "Residents",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Payments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ApartmentId = table.Column<int>(type: "int", nullable: false),
+                    ResidentId = table.Column<int>(type: "int", nullable: false),
+                    CardCash = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PaymentType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Year = table.Column<int>(type: "int", nullable: false),
+                    Month = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Payments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Payments_Apartments_ApartmentId",
+                        column: x => x.ApartmentId,
+                        principalTable: "Apartments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Payments_MonthlyExpenses_Year_Month",
+                        columns: x => new { x.Year, x.Month },
+                        principalTable: "MonthlyExpenses",
+                        principalColumns: new[] { "Year", "Month" },
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Payments_Residents_ResidentId",
+                        column: x => x.ResidentId,
+                        principalTable: "Residents",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Apartments_UserId",
+                name: "IX_Apartments_ResidentId",
                 table: "Apartments",
-                column: "UserId",
+                column: "ResidentId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -271,46 +298,25 @@ namespace PaparaBootcampFinalHomework.Migrations
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_Apartments_Userss_UserId",
-                table: "Apartments",
-                column: "UserId",
-                principalTable: "Userss",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Payments_MonthlyExpenses_Year_Month",
+            migrationBuilder.CreateIndex(
+                name: "IX_Payments_ApartmentId",
                 table: "Payments",
-                columns: new[] { "Year", "Month" },
-                principalTable: "MonthlyExpenses",
-                principalColumns: new[] { "Year", "Month" },
-                onDelete: ReferentialAction.Cascade);
+                column: "ApartmentId");
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_Payments_Userss_UserId",
+            migrationBuilder.CreateIndex(
+                name: "IX_Payments_ResidentId",
                 table: "Payments",
-                column: "UserId",
-                principalTable: "Userss",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                column: "ResidentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Payments_Year_Month",
+                table: "Payments",
+                columns: new[] { "Year", "Month" });
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Apartments_Userss_UserId",
-                table: "Apartments");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Payments_MonthlyExpenses_Year_Month",
-                table: "Payments");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Payments_Userss_UserId",
-                table: "Payments");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -327,7 +333,7 @@ namespace PaparaBootcampFinalHomework.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Userss");
+                name: "Payments");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -335,84 +341,14 @@ namespace PaparaBootcampFinalHomework.Migrations
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Payments_Year_Month",
-                table: "Payments");
+            migrationBuilder.DropTable(
+                name: "Apartments");
 
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_MonthlyExpenses",
-                table: "MonthlyExpenses");
+            migrationBuilder.DropTable(
+                name: "MonthlyExpenses");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Apartments_UserId",
-                table: "Apartments");
-
-            migrationBuilder.DropColumn(
-                name: "Year",
-                table: "MonthlyExpenses");
-
-            migrationBuilder.DropColumn(
-                name: "Month",
-                table: "MonthlyExpenses");
-
-            migrationBuilder.AlterColumn<int>(
-                name: "UserId",
-                table: "Payments",
-                type: "int",
-                nullable: true,
-                oldClrType: typeof(int),
-                oldType: "int");
-
-            migrationBuilder.AlterColumn<int>(
-                name: "Id",
-                table: "MonthlyExpenses",
-                type: "int",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "int")
-                .Annotation("SqlServer:Identity", "1, 1");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_MonthlyExpenses",
-                table: "MonthlyExpenses",
-                column: "Id");
-
-            migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ApartmentId1 = table.Column<int>(type: "int", nullable: false),
-                    ApartmentId = table.Column<int>(type: "int", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IdentityNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Surname = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Users_Apartments_ApartmentId1",
-                        column: x => x.ApartmentId1,
-                        principalTable: "Apartments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_ApartmentId1",
-                table: "Users",
-                column: "ApartmentId1");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Payments_Apartments_UserId",
-                table: "Payments",
-                column: "UserId",
-                principalTable: "Apartments",
-                principalColumn: "Id");
+            migrationBuilder.DropTable(
+                name: "Residents");
         }
     }
 }

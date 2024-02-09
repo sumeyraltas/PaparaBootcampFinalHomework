@@ -1,24 +1,18 @@
 ﻿using AutoMapper;
 using Models.Shared.ResponseDto;
+using PaparaBootcampFinalHomework.Models.Residents.DTOs;
 using PaparaBootcampFinalHomework.Models.UnitOfWorks;
 
 namespace PaparaBootcampFinalHomework.Models.Users
 {
 
-        public class ResidentService : IResidentService
+    public class ResidentService(IResidentRepository userRepository, IMapper mapper, IUnitOfWork unitOfWork) : IResidentService
         {
-            private readonly IResidentRepository _userRepository;
-            private readonly IMapper _mapper;
-            private readonly IUnitOfWork _unitOfWork;
+            private readonly IResidentRepository _userRepository = userRepository;
+            private readonly IMapper _mapper = mapper;
+            private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
-            public ResidentService(IResidentRepository userRepository, IMapper mapper, IUnitOfWork unitOfWork)
-            {
-                _userRepository = userRepository;
-                _mapper = mapper;
-                _unitOfWork = unitOfWork;
-            }
-
-            public ResponseDto<List<ResidentDTO>> GetAllUser()
+        public ResponseDto<List<ResidentDTO>> GetAllUser()
             {
                 using var transaction = _unitOfWork.BeginTransaction();
 
@@ -53,17 +47,17 @@ namespace PaparaBootcampFinalHomework.Models.Users
                 transaction.Commit();
             }
 
-            public ResponseDto<int> AddUser(ResidentDTO request)
+            public ResponseDto<string> AddUser(ResidentDTO request)
             {
                 using var transaction = _unitOfWork.BeginTransaction();
 
-                var user = new Resident {  };
+                var user = new Resident { Name = request.Name, Surname = request.Surname, Email = request.Email, PhoneNumber = request.PhoneNumber   };
                 _userRepository.AddUser(user);
 
                 _unitOfWork.Commit();
                 transaction.Commit();
 
-                return ResponseDto<int>.Success(user.Id);
+                return ResponseDto<string>.Success(user.Name);
             }
 
             public void UpdateUser(ResidentDTO request)

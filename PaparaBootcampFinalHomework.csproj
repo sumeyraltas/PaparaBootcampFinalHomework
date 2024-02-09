@@ -23,4 +23,9 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.3.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Admin\DTOs\" />
+    <Folder Include="Models\Apartments\DTOs\" />
+  </ItemGroup>
+
 </Project>

@@ -25,13 +25,13 @@ namespace PaparaBootcampFinalHomework.Models.Apartments
         {
             return _context.Apartments.ToList();
         }
-        public List<int> GetAllApartmentIds()
+        public List<int?> GetAllApartmentIds()
         {
             return _context.Apartments.Select(a => a.Id).ToList();
         }
         public Apartment GetByIdApartment(int id)
         {
-            return _context.Apartments.SingleOrDefault(x => x.Id == id);
+            return _context.Apartments.Find(id);
         }
 
         public void UpdateApartment(Apartment apartment)

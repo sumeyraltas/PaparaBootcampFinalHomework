@@ -11,26 +11,23 @@ namespace PaparaBootcampFinalHomework.Models.Payments
             _context = context;
         }
 
-        public Payment AddMonthlyBills(Payment payment)
+       
+        public Payment AddPaymentBills(Payment payment)
         {
             _context.Payments.Add(payment);
-     
+
             return payment;
         }
-
-        public List<MonthlyExpense> GetAllMonthlyExpenses()
+        public List<Payment> GetMonthlyBillsByMonth(int month)
         {
-            return _context.MonthlyExpenses.ToList();
+            return _context.Payments
+                .Where(p => p.Month == month)
+                .ToList();
         }
 
-        public Payment GetMonthlyBillsByMonth(DateTime payment)
-        {
-            return _context.Payments.SingleOrDefault(b => b.PaymentDate == payment);
-        }
-     
-        public List<Payment> GetUserPayments(int userId)
-        {
-            // return _context.PaymentDTO.Where(u => u.UserId == userId).ToList();
+
+        public List<Payment> GetUserPayments()
+        {    
             return _context.Payments.ToList();
 
         }

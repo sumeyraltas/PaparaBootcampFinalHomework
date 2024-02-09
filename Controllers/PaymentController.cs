@@ -1,6 +1,8 @@
 ﻿using Azure;
 using Microsoft.AspNetCore.Mvc;
+using PaparaBootcampFinalHomework.Models.MonthlyExpense.DTOs;
 using PaparaBootcampFinalHomework.Models.Payments;
+using PaparaBootcampFinalHomework.Models.Payments.DTOs;
 
 namespace PaparaBootcampFinalHomework.Controllers
 {
@@ -13,7 +15,7 @@ namespace PaparaBootcampFinalHomework.Controllers
 
         //[Authorize(Roles = "Admin")]
         [HttpPost("monthly-bills")]
-        public IActionResult AddMonthlyBills(PaymentDTO paymentDTO)
+        public IActionResult AddMonthlyBills(MonthlyExpenseDTO paymentDTO)
         {
 
             var response = _paymentService.AddMonthlyBills(paymentDTO);
@@ -23,19 +25,14 @@ namespace PaparaBootcampFinalHomework.Controllers
             }
             return Created("", response);
 
-
-
         }
         //[Authorize(Roles = "Admin")]
         [HttpGet("monthly-bills/{billingMonth}")]
-        public IActionResult GetMonthlyBillsByMonth(DateTime billingMonth)
+        public IActionResult GetMonthlyPaymentsByMonth(int billingMonth)
         {
 
             var response = _paymentService.GetMonthlyBillsByMonth(billingMonth);
-            if (response.AnyError)
-            {
-                return BadRequest(response);
-            }
+           
             if (response != null)
                 return Ok(response);
             else
@@ -43,26 +40,22 @@ namespace PaparaBootcampFinalHomework.Controllers
 
         }
 
-
-        [HttpGet("user-payments/{userId}")]
-        public IActionResult GetUserPayments(int userId)
+        [HttpGet("user-payments")]
+        public IActionResult GetUserPayments()
         {
-
-            var userPayments = _paymentService.GetUserPayments(userId);
-
+            var userPayments = _paymentService.GetUserPayments();
 
             if (userPayments != null)
                 return Ok(userPayments);
             else
                 return NotFound("No payments found for the user.");
-
         }
 
         [HttpGet("building-expenses")]
         public IActionResult GetBuildingExpenses()
         {
 
-            var buildingExpenses = _paymentService.GetBuildingExpenses();
+            var buildingExpenses = _paymentService.GetAllTotalBuildingExpenses();
 
             return Ok(buildingExpenses);
 
@@ -75,17 +68,27 @@ namespace PaparaBootcampFinalHomework.Controllers
             return Ok(response);
         }
 
-        [HttpPost("add-monthly-bills-for-one-apartment")]
-        public IActionResult AddMonthlyBillsForOneApartment([FromBody] PaymentDTO request)
+       
+        [HttpGet("gas-bills")]
+        public IActionResult GetAllGasBills()
         {
-            var response = _paymentService.AddMonthlyBillsForOneApartment(request);
+                var response = _paymentService.GetAllGasBills();
+          
+                return Ok(response);
+        }
+        [HttpGet("electricity-bills")]
+        public IActionResult GetAllElectricityBill()
+        {
+            var response = _paymentService.GetAllElectricityBill();
 
-            if (response.AnyError)
-            {
-                return BadRequest(response);
-            }
             return Ok(response);
         }
+        [HttpGet("water-bills")]
+        public IActionResult GetAllWaterBill()
+        {
+            var response = _paymentService.GetAllWaterBill();
 
+            return Ok(response);
+        }
     }
 }

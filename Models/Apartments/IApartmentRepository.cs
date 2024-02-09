@@ -8,7 +8,7 @@ namespace PaparaBootcampFinalHomework.Models.Apartments
 
 
         Apartment AddApartment(Apartment apartment);
-        List<int> GetAllApartmentIds();
+        List<int?> GetAllApartmentIds();
 
         void UpdateApartment(Apartment apartment);
 

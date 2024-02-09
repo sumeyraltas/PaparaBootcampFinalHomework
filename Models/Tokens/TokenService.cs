@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Models.Shared.ResponseDto;
+using PaparaBootcampFinalHomework.Models.Tokens.DTOs;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -16,7 +17,6 @@ namespace PaparaBootcampFinalHomework.Models.Tokens
             // UserClaim=> birthDate:30.12.1990
             // RoleClaim=> scope:["create,update,delete"] // permission
             // UserRole=> Role.
-
 
             var hasUser = await userManager.FindByNameAsync(request.UserName);
 

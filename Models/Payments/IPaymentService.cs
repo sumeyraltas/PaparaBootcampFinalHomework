@@ -1,16 +1,16 @@
-﻿using Models.Shared.ResponseDto;
+﻿
+using Models.Shared.ResponseDto;
+using PaparaBootcampFinalHomework.Models.MonthlyExpense.DTOs;
+using PaparaBootcampFinalHomework.Models.Payments.DTOs;
 
 namespace PaparaBootcampFinalHomework.Models.Payments
 {
     public interface IPaymentService
     {
-        ResponseDto<int> AddMonthlyBills(PaymentDTO request);
-        List<PaymentDTO> GetBuildingExpenses();
-        // List<UserPaymentDTO>
-        ResponseDto<int> GetMonthlyBillsByMonth(DateTime billingMonth);
-        List<PaymentDTO> GetUserPayments(int userId);
-        //List<BuildingExpenseDTO>
+      
+        List<PaymentDTO> GetMonthlyBillsByMonth(int billingMonth);
+        List<PaymentDTO> GetUserPayments();
         ResponseDto<int> AddMonthlyBillsForAllApartments(PaymentDTO request);
-        ResponseDto<int> AddMonthlyBillsForOneApartment(PaymentDTO request);
+      
     }
 }

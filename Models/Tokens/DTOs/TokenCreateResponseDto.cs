@@ -1,4 +1,4 @@
-﻿namespace PaparaBootcampFinalHomework.Models.Tokens
+﻿namespace PaparaBootcampFinalHomework.Models.Tokens.DTOs
 {
     public class TokenCreateResponseDto
     {

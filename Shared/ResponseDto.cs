@@ -1,5 +1,4 @@
-﻿using PaparaBootcampFinalHomework.Models.Payments;
-
+﻿
 namespace Models.Shared.ResponseDto;
 
 public class ResponseDto<T>

@@ -47,8 +47,13 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signatureKey))
     };
 });
-
 var app = builder.Build();
+
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+var identityService = services.GetRequiredService<IdentityService>();
+identityService.EnsureAdminUserExists();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

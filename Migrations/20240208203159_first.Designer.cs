@@ -12,8 +12,8 @@ using PaparaBootcampFinalHomework.Shared;
 namespace PaparaBootcampFinalHomework.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240208182858_second")]
-    partial class second
+    [Migration("20240208203159_first")]
+    partial class first
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -153,16 +153,16 @@ namespace PaparaBootcampFinalHomework.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ResidentId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
+                    b.HasIndex("ResidentId")
                         .IsUnique();
 
                     b.ToTable("Apartments");
@@ -227,7 +227,7 @@ namespace PaparaBootcampFinalHomework.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("ResidentId")
                         .HasColumnType("int");
 
                     b.Property<int>("Year")
@@ -237,7 +237,7 @@ namespace PaparaBootcampFinalHomework.Migrations
 
                     b.HasIndex("ApartmentId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("ResidentId");
 
                     b.HasIndex("Year", "Month");
 
@@ -364,7 +364,7 @@ namespace PaparaBootcampFinalHomework.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Userss");
+                    b.ToTable("Residents");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -420,13 +420,13 @@ namespace PaparaBootcampFinalHomework.Migrations
 
             modelBuilder.Entity("PaparaBootcampFinalHomework.Models.Apartments.Apartment", b =>
                 {
-                    b.HasOne("PaparaBootcampFinalHomework.Models.Users.Resident", "User")
+                    b.HasOne("PaparaBootcampFinalHomework.Models.Users.Resident", "Resident")
                         .WithOne("Apartment")
-                        .HasForeignKey("PaparaBootcampFinalHomework.Models.Apartments.Apartment", "UserId")
+                        .HasForeignKey("PaparaBootcampFinalHomework.Models.Apartments.Apartment", "ResidentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("Resident");
                 });
 
             modelBuilder.Entity("PaparaBootcampFinalHomework.Models.Payments.Payment", b =>
@@ -437,23 +437,23 @@ namespace PaparaBootcampFinalHomework.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PaparaBootcampFinalHomework.Models.Users.Resident", "User")
+                    b.HasOne("PaparaBootcampFinalHomework.Models.Users.Resident", "Resident")
                         .WithMany("Payments")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("ResidentId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("PaparaBootcampFinalHomework.Models.Payments.MonthlyExpense", "MonthlyExpense")
                         .WithMany("Payments")
                         .HasForeignKey("Year", "Month")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Apartment");
 
                     b.Navigation("MonthlyExpense");
 
-                    b.Navigation("User");
+                    b.Navigation("Resident");
                 });
 
             modelBuilder.Entity("PaparaBootcampFinalHomework.Models.Apartments.Apartment", b =>

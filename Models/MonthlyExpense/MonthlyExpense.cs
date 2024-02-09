@@ -1,4 +1,6 @@
-﻿namespace PaparaBootcampFinalHomework.Models.Payments
+﻿using PaparaBootcampFinalHomework.Models.Payments;
+
+namespace PaparaBootcampFinalHomework.Models.MonthlyExpense
 {
     public class MonthlyExpense
     {
@@ -10,6 +12,6 @@
         public bool IsPaid { get; set; }
         public int Year { get; internal set; }
         public int Month { get; internal set; }
-        public ICollection<Payment> Payments { get; internal set; }
+        public ICollection<Payment> Payments { get;  set; }
     }
 }

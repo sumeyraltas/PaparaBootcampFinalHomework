@@ -1,6 +1,7 @@
 ﻿using Azure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PaparaBootcampFinalHomework.Models.Residents.DTOs;
 using PaparaBootcampFinalHomework.Models.Users;
 
 namespace PaparaBootcampFinalHomework.Controllers
@@ -8,15 +9,15 @@ namespace PaparaBootcampFinalHomework.Controllers
     //[Authorize]
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class UserController(IResidentService userService) : ControllerBase
+    public class ResidentController(IResidentService residentService) : ControllerBase
     {
-        private readonly IResidentService _userService = userService;
+        private readonly IResidentService _residentService = residentService;
 
         //[Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult AddUser(ResidentDTO userDto)
+        public IActionResult AddResident(ResidentDTO userDto)
         {
-            var response = _userService.AddUser(userDto);
+            var response = _residentService.AddUser(userDto);
             if (response.AnyError)
             {
                 return BadRequest(response);
@@ -25,23 +26,23 @@ namespace PaparaBootcampFinalHomework.Controllers
         }
         //[Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
-        public IActionResult UpdateUser(int id, ResidentDTO userDto)
+        public IActionResult UpdateResident( ResidentDTO userDto)
         {
-            _userService.UpdateUser(userDto);
+            _residentService.UpdateUser(userDto);
 
             return Ok();
         }
         //[Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
-        public IActionResult DeleteUser(int id)
+        public IActionResult DeleteResident(int id)
         {
-            _userService.DeleteUser(id);
+            _residentService.DeleteUser(id);
             return Ok();
         }
         [HttpGet]
-        public IActionResult GetAllUser()
+        public IActionResult GetAllResident()
         {
-            var response = _userService.GetAllUser();
+            var response = _residentService.GetAllUser();
             if (response.AnyError)
             {
                 return BadRequest(response);
@@ -49,9 +50,9 @@ namespace PaparaBootcampFinalHomework.Controllers
             return Ok(response);
         }
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetByIdResident(int id)
         {
-            return Ok(_userService.GetByIdUser(id));
+            return Ok(_residentService.GetByIdUser(id));
         }
 
     }

@@ -1,4 +1,5 @@
 ﻿using Models.Shared.ResponseDto;
+using PaparaBootcampFinalHomework.Models.Residents.DTOs;
 
 namespace PaparaBootcampFinalHomework.Models.Users
 {
@@ -7,7 +8,7 @@ namespace PaparaBootcampFinalHomework.Models.Users
         ResponseDto<List<ResidentDTO>> GetAllUser();
          ResidentDTO GetByIdUser(int id);
         void DeleteUser(int id);
-        ResponseDto<int> AddUser(ResidentDTO request);
+        ResponseDto<string> AddUser(ResidentDTO request);
 
          void UpdateUser(ResidentDTO request);
 }
