@@ -1,4 +1,4 @@
-﻿namespace PaparaBootcampFinalHomework.Models.Admin
+﻿namespace PaparaBootcampFinalHomework.Models.Admin.DTOs
 {
     public class AdminCreateRequestDto
     {

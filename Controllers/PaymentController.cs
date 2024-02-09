@@ -13,19 +13,7 @@ namespace PaparaBootcampFinalHomework.Controllers
     {
         private readonly IPaymentService _paymentService = paymentService;
 
-        //[Authorize(Roles = "Admin")]
-        [HttpPost("monthly-bills")]
-        public IActionResult AddMonthlyBills(MonthlyExpenseDTO paymentDTO)
-        {
-
-            var response = _paymentService.AddMonthlyBills(paymentDTO);
-            if (response.AnyError)
-            {
-                return BadRequest(response);
-            }
-            return Created("", response);
-
-        }
+    
         //[Authorize(Roles = "Admin")]
         [HttpGet("monthly-bills/{billingMonth}")]
         public IActionResult GetMonthlyPaymentsByMonth(int billingMonth)
@@ -39,7 +27,16 @@ namespace PaparaBootcampFinalHomework.Controllers
                 return NotFound("No monthly bills found for the given month.");
 
         }
-
+        [HttpPost("add-payment")]
+        public IActionResult AddPayment([FromBody] PaymentDTO request)
+        {
+            var response = _paymentService.AddPayment(request);
+            if (response.AnyError)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
         [HttpGet("user-payments")]
         public IActionResult GetUserPayments()
         {
@@ -51,15 +48,6 @@ namespace PaparaBootcampFinalHomework.Controllers
                 return NotFound("No payments found for the user.");
         }
 
-        [HttpGet("building-expenses")]
-        public IActionResult GetBuildingExpenses()
-        {
-
-            var buildingExpenses = _paymentService.GetAllTotalBuildingExpenses();
-
-            return Ok(buildingExpenses);
-
-        }
         [HttpPost("add-monthly-bills-for-all-apartments")]
         public IActionResult AddMonthlyBillsForAllApartments([FromBody] PaymentDTO request)
         {
@@ -69,26 +57,6 @@ namespace PaparaBootcampFinalHomework.Controllers
         }
 
        
-        [HttpGet("gas-bills")]
-        public IActionResult GetAllGasBills()
-        {
-                var response = _paymentService.GetAllGasBills();
-          
-                return Ok(response);
-        }
-        [HttpGet("electricity-bills")]
-        public IActionResult GetAllElectricityBill()
-        {
-            var response = _paymentService.GetAllElectricityBill();
-
-            return Ok(response);
-        }
-        [HttpGet("water-bills")]
-        public IActionResult GetAllWaterBill()
-        {
-            var response = _paymentService.GetAllWaterBill();
-
-            return Ok(response);
-        }
+     
     }
 }

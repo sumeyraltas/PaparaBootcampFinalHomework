@@ -1,6 +1,4 @@
-﻿using PaparaBootcampFinalHomework.Models.Apartments;
-using PaparaBootcampFinalHomework.Models.Payments;
-using PaparaBootcampFinalHomework.Models.Users;
+﻿using PaparaBootcampFinalHomework.Models.Admin.DTOs;
 using PaparaBootcampFinalHomework.Shared;
 
 namespace PaparaBootcampFinalHomework.Models.Admin
@@ -15,12 +13,6 @@ namespace PaparaBootcampFinalHomework.Models.Admin
         }
 
 
-        public void AssignUsersToApartments(List<UserApartmentDTO> userApartments)
-        {
-            // Map DTOs to entities and add to context
-            // _context.UserApartments.AddRange(userApartments);
-
-        }
 
 
     }

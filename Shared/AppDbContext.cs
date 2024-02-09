@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PaparaBootcampFinalHomework.Models.Apartments;
 using PaparaBootcampFinalHomework.Models.MonthlyExpense;
@@ -56,7 +55,7 @@ namespace PaparaBootcampFinalHomework.Shared
                 .HasMany(me => me.Payments)
                 .WithOne(p => p.MonthlyExpense)
                 .HasForeignKey(p => new { p.Year, p.Month })
-                .OnDelete(DeleteBehavior.Restrict); // Ensure no cascading delete
+                .OnDelete(DeleteBehavior.Restrict); 
         }
 
 

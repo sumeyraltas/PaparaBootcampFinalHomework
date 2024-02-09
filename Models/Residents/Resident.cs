@@ -1,6 +1,5 @@
 ﻿using PaparaBootcampFinalHomework.Models.Apartments;
 using PaparaBootcampFinalHomework.Models.Payments;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PaparaBootcampFinalHomework.Models.Users
 {
@@ -20,7 +19,6 @@ namespace PaparaBootcampFinalHomework.Models.Users
        public Apartment Apartment { get; set; }
       
        // public int ApartmentId { get; set; }
-       
 
      } 
 }

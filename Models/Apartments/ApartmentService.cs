@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Models.Shared.ResponseDto;
+using PaparaBootcampFinalHomework.Models.Apartments.DTOs;
 using PaparaBootcampFinalHomework.Models.UnitOfWorks;
 using PaparaBootcampFinalHomework.Models.Users;
 

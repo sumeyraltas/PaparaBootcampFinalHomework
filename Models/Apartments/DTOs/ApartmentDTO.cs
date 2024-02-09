@@ -1,10 +1,10 @@
 ﻿using PaparaBootcampFinalHomework.Models.Payments;
 
-namespace PaparaBootcampFinalHomework.Models.Apartments
+namespace PaparaBootcampFinalHomework.Models.Apartments.DTOs
 {
     public class ApartmentDTO
     {
-       // public int Id { get; set; }
+        // public int Id { get; set; }
         public required string BlockInfo { get; set; }
         public required bool IsOccupied { get; set; }
         public string? Type { get; set; }
@@ -12,7 +12,7 @@ namespace PaparaBootcampFinalHomework.Models.Apartments
         public required int ApartmentNumber { get; set; }
         public required string OwnerTenant { get; set; }
         public required int ResidentId { get; set; }
-  
+
         //public ICollection<Payment> Payments { get; set; }
     }
 }

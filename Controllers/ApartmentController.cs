@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PaparaBootcampFinalHomework.Models.Apartments;
+using PaparaBootcampFinalHomework.Models.Apartments.DTOs;
 using PaparaBootcampFinalHomework.Models.Users;
 
 namespace PaparaBootcampFinalHomework.Controllers

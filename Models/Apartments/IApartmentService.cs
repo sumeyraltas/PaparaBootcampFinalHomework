@@ -1,4 +1,5 @@
 ﻿using Models.Shared.ResponseDto;
+using PaparaBootcampFinalHomework.Models.Apartments.DTOs;
 namespace PaparaBootcampFinalHomework.Models.Apartments
 {
     public interface IApartmentService

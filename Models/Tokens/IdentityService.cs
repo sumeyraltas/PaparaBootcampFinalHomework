@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Models.Shared.ResponseDto;
-using PaparaBootcampFinalHomework.Models.Admin;
+using PaparaBootcampFinalHomework.Models.Admin.DTOs;
 using PaparaBootcampFinalHomework.Models.Tokens.DTOs;
 
 namespace PaparaBootcampFinalHomework.Models.Tokens
@@ -60,19 +60,15 @@ namespace PaparaBootcampFinalHomework.Models.Tokens
             var appRole = new AppRole
             {
                 Name = request.RoleName,
-                // Id = request.UserId
-
             };
 
             var hasRole = await roleManager.RoleExistsAsync(appRole.Name);
-
 
             IdentityResult? roleCreateResult = null;
             if (!hasRole)
             {
                 roleCreateResult = await roleManager.CreateAsync(appRole);
             }
-
 
             if (roleCreateResult is not null && !roleCreateResult.Succeeded)
             {
@@ -81,14 +77,12 @@ namespace PaparaBootcampFinalHomework.Models.Tokens
                 return ResponseDto<string>.Fail(errorList);
             }
 
-
             var hasUser = await userManager.FindByIdAsync(request.UserId);
 
             if (hasUser is null)
             {
                 return ResponseDto<string>.Fail("kullanıcı bulunamadı.");
             }
-
 
             var roleAssignResult = await userManager.AddToRoleAsync(hasUser, appRole.Name);
 

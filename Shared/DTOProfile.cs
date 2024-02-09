@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PaparaBootcampFinalHomework.Models.Admin;
 using PaparaBootcampFinalHomework.Models.Apartments;
+using PaparaBootcampFinalHomework.Models.Apartments.DTOs;
 using PaparaBootcampFinalHomework.Models.MonthlyExpense;
 using PaparaBootcampFinalHomework.Models.MonthlyExpense.DTOs;
 using PaparaBootcampFinalHomework.Models.Payments;

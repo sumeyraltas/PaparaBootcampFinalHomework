@@ -12,12 +12,6 @@ namespace PaparaBootcampFinalHomework.Models.Tokens
     {
         public async Task<ResponseDto<TokenCreateResponseDto>> Create(TokenCreateRequestDTO request)
         {
-            // Claim => Auth2.0 VE OpenID Connect standartlarına göre bir kullanıcının kimliğini, yetkilerini ve diğer bilgilerini içeren bir JSON nesnesidir.
-
-            // UserClaim=> birthDate:30.12.1990
-            // RoleClaim=> scope:["create,update,delete"] // permission
-            // UserRole=> Role.
-
             var hasUser = await userManager.FindByNameAsync(request.UserName);
 
             if (hasUser is null)

@@ -3,14 +3,10 @@ using PaparaBootcampFinalHomework.Shared;
 
 namespace PaparaBootcampFinalHomework.Models.MonthlyExpense
 {
-    public class MonthlyExpenseRepository : IMonthlyExpenseRepository
+    public class MonthlyExpenseRepository(AppDbContext context) : IMonthlyExpenseRepository
     {
         private readonly AppDbContext _context;
 
-        public MonthlyExpenseRepository(AppDbContext context)
-        {
-            _context = context;
-        }
         public List<MonthlyExpense> GetAllMonthlyExpenses()
         {
             return _context.MonthlyExpenses.ToList();

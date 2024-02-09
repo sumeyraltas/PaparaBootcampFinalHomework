@@ -7,10 +7,9 @@ using PaparaBootcampFinalHomework.Models.UnitOfWorks;
 
 namespace PaparaBootcampFinalHomework.Models.MonthlyExpense
 {
-    public class MonthlyExpenseService(IMonthlyExpenseRepository monthlyExpenseRepository, IApartmentRepository apartmentRepository, IMapper mapper, IUnitOfWork unitOfWork) : IMonthlyExpenseService
+    public class MonthlyExpenseService(IMonthlyExpenseRepository monthlyExpenseRepository , IMapper mapper, IUnitOfWork unitOfWork) : IMonthlyExpenseService
     {
         private readonly IMonthlyExpenseRepository _monthlyExpenseRepository = monthlyExpenseRepository;
-        private readonly IApartmentRepository _apartmentRepository = apartmentRepository;
         private readonly IMapper _mapper = mapper;
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         public List<GasBillsDTO> GetAllGasBills()
@@ -18,7 +17,6 @@ namespace PaparaBootcampFinalHomework.Models.MonthlyExpense
             using var transaction = _unitOfWork.BeginTransaction();
 
             var gasBills = _monthlyExpenseRepository.GetAllGasBills();
-
 
             _unitOfWork.Commit();
             transaction.Commit();

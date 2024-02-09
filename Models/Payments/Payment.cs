@@ -1,7 +1,5 @@
 ﻿using PaparaBootcampFinalHomework.Models.Apartments;
 using PaparaBootcampFinalHomework.Models.Users;
-using PaparaBootcampFinalHomework.Models.MonthlyExpense;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PaparaBootcampFinalHomework.Models.Payments
 {
@@ -14,11 +12,10 @@ namespace PaparaBootcampFinalHomework.Models.Payments
         public int ResidentId { get; set; }
         public string CardCash { get; set; }
         public DateTime PaymentDate { get; set; }
-        public string PaymentType { get; set; } // Dues/Bill (Electricity/Water/NaturalGas)
+        public string PaymentType { get; set; } // Dues/Bill (Electricity/Water/Gas)
         public decimal Amount { get; set; }
         public int Year { get; set; }
         public int Month { get; set; }
-        
-        public MonthlyExpense MonthlyExpense { get; set; }
+        public MonthlyExpense.MonthlyExpense MonthlyExpense { get; set; }
     }
 }

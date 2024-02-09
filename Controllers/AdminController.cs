@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PaparaBootcampFinalHomework.Models.Tokens;
 using TokenService = PaparaBootcampFinalHomework.Models.Tokens.TokenService;
-using PaparaBootcampFinalHomework.Models.Admin;
 using PaparaBootcampFinalHomework.Models.Tokens.DTOs;
+using PaparaBootcampFinalHomework.Models.Admin.DTOs;
 namespace PaparaBootcampFinalHomework.Controllers
 {
     [Route("api/[controller]/[action]")]

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Models.Shared.ResponseDto;
 using PaparaBootcampFinalHomework.Models.Apartments;
-using PaparaBootcampFinalHomework.Models.MonthlyExpense.DTOs;
 using PaparaBootcampFinalHomework.Models.Payments.DTOs;
 using PaparaBootcampFinalHomework.Models.UnitOfWorks;
 
@@ -32,17 +31,38 @@ namespace PaparaBootcampFinalHomework.Models.Payments
                     Year = request.Year,
                     Month = request.Month
                 };
-
                 paymentsToAdd.Add(payment);
             }
 
-          //  _paymentRepository.AddMonthlyBills(paymentsToAdd);
             _unitOfWork.Commit();
             transaction.Commit();
 
             return ResponseDto<int>.Success(paymentsToAdd.First().Id);
         }
-   
+        public ResponseDto<int> AddPayment(PaymentDTO request)
+        {
+            using var transaction = _unitOfWork.BeginTransaction();
+
+            var payment = new Payment
+            {
+                ApartmentId = request.ApartmentId,
+                ResidentId = request.ResidentId,
+                CardCash = request.CardCash,
+                PaymentDate = DateTime.Now,
+                PaymentType = request.PaymentType,
+                Amount = request.Amount,
+                Year = request.Year,
+                Month = request.Month,
+                MonthlyExpense = request.MonthlyExpense
+            };
+
+            _paymentRepository.AddPaymentBills(payment);
+            _unitOfWork.Commit();
+            transaction.Commit();
+
+            return ResponseDto<int>.Success(payment.Id);
+        }
+
         public List<PaymentDTO> GetMonthlyBillsByMonth(int billingMonth)
         {
             using var transaction = _unitOfWork.BeginTransaction();

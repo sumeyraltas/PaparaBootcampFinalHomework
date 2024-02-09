@@ -7,7 +7,7 @@ namespace PaparaBootcampFinalHomework.Models.Payments
 {
     public interface IPaymentService
     {
-      
+        ResponseDto<int> AddPayment(PaymentDTO request);
         List<PaymentDTO> GetMonthlyBillsByMonth(int billingMonth);
         List<PaymentDTO> GetUserPayments();
         ResponseDto<int> AddMonthlyBillsForAllApartments(PaymentDTO request);

@@ -6,7 +6,6 @@ namespace PaparaBootcampFinalHomework.Models.MonthlyExpense
     {
         List<Payment> GetAllGasBills();
         List<Payment> GetAllElectricityBill();
-
         List<Payment> GetAllWaterBill();
         MonthlyExpense AddMonthlyBills(MonthlyExpense payment);
         List<MonthlyExpense> GetAllMonthlyExpenses();
