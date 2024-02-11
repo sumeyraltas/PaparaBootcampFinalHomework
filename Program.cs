@@ -39,7 +39,6 @@ builder.Services.AddAuthentication(options =>
     opt.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateLifetime = true,
-
         ValidateIssuerSigningKey = true,
         ValidateAudience = false,
         ValidateIssuer = true,

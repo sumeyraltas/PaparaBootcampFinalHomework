@@ -6,7 +6,7 @@ namespace PaparaBootcampFinalHomework.Models.MonthlyExpense
 {
     public class MonthlyExpenseRepository(AppDbContext context) : IMonthlyExpenseRepository
     {
-        private readonly AppDbContext _context;
+        private readonly AppDbContext _context = context;
 
         public List<MonthlyExpense> GetAllMonthlyExpenses()
         {
