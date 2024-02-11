@@ -19,6 +19,7 @@ namespace PaparaBootcampFinalHomework.Shared
             CreateMap<Resident, ResidentDTO>();
             CreateMap<Apartment, ApartmentDTO>();
             CreateMap<Payment, PaymentDTO>();
+            CreateMap<Payment, ResistentPaymentsDTO>();
             CreateMap<MonthlyExpense, GasBillsDTO>();
             CreateMap<MonthlyExpense, ElectricityBillsDTO>();
             CreateMap<MonthlyExpense, WaterBillsDTO>();

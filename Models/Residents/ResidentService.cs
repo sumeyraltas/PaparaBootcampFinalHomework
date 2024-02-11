@@ -5,7 +5,6 @@ using PaparaBootcampFinalHomework.Models.UnitOfWorks;
 
 namespace PaparaBootcampFinalHomework.Models.Users
 {
-
     public class ResidentService(IResidentRepository userRepository, IMapper mapper, IUnitOfWork unitOfWork) : IResidentService
         {
             private readonly IResidentRepository _userRepository = userRepository;
@@ -53,7 +52,6 @@ namespace PaparaBootcampFinalHomework.Models.Users
 
                 var user = new Resident { Name = request.Name, Surname = request.Surname, Email = request.Email, PhoneNumber = request.PhoneNumber   };
                 _userRepository.AddUser(user);
-
                 _unitOfWork.Commit();
                 transaction.Commit();
 
@@ -66,14 +64,13 @@ namespace PaparaBootcampFinalHomework.Models.Users
 
                 var user = _userRepository.GetByIdUser(request.Id);
                 if (user == null)
-                    return; // or handle the case where user is not found
+                    return; 
 
                 user.Name = request.Name;
                 user.Email = request.Email;
                 user.PhoneNumber = request.PhoneNumber;
 
                 _userRepository.UpdateUser(user);
-
                 _unitOfWork.Commit();
                 transaction.Commit();
             }

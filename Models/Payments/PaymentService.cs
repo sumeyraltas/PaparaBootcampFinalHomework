@@ -14,7 +14,6 @@ namespace PaparaBootcampFinalHomework.Models.Payments
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         public ResponseDto<int> AddMonthlyBillsForAllApartments(PaymentDTO request)
         {
-           
             using var transaction = _unitOfWork.BeginTransaction();
 
             var paymentsToAdd = new List<Payment>();
@@ -23,11 +22,11 @@ namespace PaparaBootcampFinalHomework.Models.Payments
             {
                 var payment = new Payment
                 {
-                 
+                    ApartmentId = request.ApartmentId,
                     CardCash = request.CardCash,
                     PaymentDate = DateTime.Now,
                     PaymentType = request.PaymentType,
-                    Amount = request.Amount, 
+                    Amount = request.Amount,
                     Year = request.Year,
                     Month = request.Month
                 };
@@ -75,7 +74,6 @@ namespace PaparaBootcampFinalHomework.Models.Payments
             return _mapper.Map<List<PaymentDTO>>(monthlyBills);
         }
 
-
         public List<PaymentDTO> GetUserPayments()
         {
             using var transaction = _unitOfWork.BeginTransaction();
@@ -84,7 +82,38 @@ namespace PaparaBootcampFinalHomework.Models.Payments
             transaction.Commit();
             return _mapper.Map<List<PaymentDTO>>(userPayments);
         }
+        public List<ResistentPaymentsDTO> GetResidentPayments(int id)
+        {
+            using var transaction = _unitOfWork.BeginTransaction();
+            var residentPayments = _paymentRepository.GetResidentPayments(id);
+            _unitOfWork.Commit();
+            transaction.Commit();
+            return MapToResistentPaymentsDTO(residentPayments);
+        }
 
+        public ResponseDto<string> MakePayment(ResistentPaymentsDTO request)
+        {
+            return ResponseDto<string>.Success("");
+        }
 
+        private List<ResistentPaymentsDTO> MapToResistentPaymentsDTO(List<Payment> payments)
+        {
+            List<ResistentPaymentsDTO> dtoList = new List<ResistentPaymentsDTO>();
+
+            foreach (var payment in payments)
+            {
+                ResistentPaymentsDTO dto = new ResistentPaymentsDTO
+                {
+                    ResidentId = payment.ResidentId,
+                    CardCash = payment.CardCash,
+                    PaymentType = payment.PaymentType,
+                    Amount = payment.Amount,
+                };
+
+                dtoList.Add(dto);
+            }
+
+            return dtoList;
+        }
     }
 }

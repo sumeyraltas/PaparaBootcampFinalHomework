@@ -8,7 +8,7 @@ using System.Text;
 
 namespace PaparaBootcampFinalHomework.Models.Tokens
 {
-    public class TokenService(IConfiguration configuration, UserManager<AppAdmin> userManager)
+    public class TokenService(IConfiguration configuration, UserManager<AppAdmin> userManager) : ITokenService
     {
         public async Task<ResponseDto<TokenCreateResponseDto>> Create(TokenCreateRequestDTO request)
         {
@@ -70,7 +70,6 @@ namespace PaparaBootcampFinalHomework.Models.Tokens
             {
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
             };
-
 
             return ResponseDto<TokenCreateResponseDto>.Success(responseDto);
         }

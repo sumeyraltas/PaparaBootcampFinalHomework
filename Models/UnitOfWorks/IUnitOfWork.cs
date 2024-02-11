@@ -6,7 +6,6 @@ namespace PaparaBootcampFinalHomework.Models.UnitOfWorks
     {
         int Commit();
         Task<int> CommitAsync();
-
         IDbContextTransaction BeginTransaction();
     }
 }

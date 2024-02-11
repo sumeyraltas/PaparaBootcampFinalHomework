@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PaparaBootcampFinalHomework.Models.Apartments;
 using PaparaBootcampFinalHomework.Models.Apartments.DTOs;
-using PaparaBootcampFinalHomework.Models.Users;
-
 namespace PaparaBootcampFinalHomework.Controllers
 {    //[Authorize]
     [ApiController]
@@ -11,20 +10,20 @@ namespace PaparaBootcampFinalHomework.Controllers
     {
         private readonly IApartmentService _apartmentService = apartmentService;
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult AddApartment(ApartmentDTO apartmentDTO)
         {
             return Ok(_apartmentService.AddApartment(apartmentDTO));
         }
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public IActionResult UpdateApartment(ApartmentDTO apartmentDTO)
         {
             _apartmentService.UpdateApartment(apartmentDTO);
             return Ok();
         }
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public IActionResult DeleteApartment(int id)
         {
@@ -32,11 +31,13 @@ namespace PaparaBootcampFinalHomework.Controllers
             return Ok();
         }
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetAllApartment()
         {
             return Ok(_apartmentService.GetAllApartment());
         }
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetByIdApartment(int id)
         {
             return Ok(_apartmentService.GetByIdApartment(id));

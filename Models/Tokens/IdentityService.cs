@@ -9,11 +9,10 @@ namespace PaparaBootcampFinalHomework.Models.Tokens
       UserManager<AppAdmin> userManager,
       RoleManager<AppRole> roleManager,
       SignInManager<AppAdmin> signInManager
-     )
+     ) : IIdentityService
     {
         public UserManager<AppAdmin> UserManager { get; set; } = userManager;
         public RoleManager<AppRole> RoleManager { get; set; } = roleManager;
-
         public SignInManager<AppAdmin> SignInManager { get; set; } = signInManager;
 
 

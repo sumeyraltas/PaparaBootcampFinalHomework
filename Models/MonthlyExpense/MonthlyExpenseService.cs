@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
 using Models.Shared.ResponseDto;
-using PaparaBootcampFinalHomework.Models.Apartments;
 using PaparaBootcampFinalHomework.Models.MonthlyExpense.DTOs;
-using PaparaBootcampFinalHomework.Models.Payments;
 using PaparaBootcampFinalHomework.Models.UnitOfWorks;
 
 namespace PaparaBootcampFinalHomework.Models.MonthlyExpense
 {
-    public class MonthlyExpenseService(IMonthlyExpenseRepository monthlyExpenseRepository , IMapper mapper, IUnitOfWork unitOfWork) : IMonthlyExpenseService
+    public class MonthlyExpenseService(IMonthlyExpenseRepository monthlyExpenseRepository, IMapper mapper, IUnitOfWork unitOfWork) : IMonthlyExpenseService
     {
         private readonly IMonthlyExpenseRepository _monthlyExpenseRepository = monthlyExpenseRepository;
         private readonly IMapper _mapper = mapper;
@@ -48,6 +46,7 @@ namespace PaparaBootcampFinalHomework.Models.MonthlyExpense
         }
         public int GetAllTotalBuildingExpenses()
         {
+            using var transaction = _unitOfWork.BeginTransaction();
             var allMonthlyExpenses = _monthlyExpenseRepository.GetAllMonthlyExpenses();
             var totalExpense = 0;
             foreach (var monthlyExpense in allMonthlyExpenses)
@@ -55,7 +54,8 @@ namespace PaparaBootcampFinalHomework.Models.MonthlyExpense
                 totalExpense = (int)(monthlyExpense.ElectricityBill + monthlyExpense.WaterBill + monthlyExpense.GasBill);
 
             }
-
+            _unitOfWork.Commit();
+            transaction.Commit();
             return totalExpense;
         }
         public ResponseDto<int> AddMonthlyBillsForOneApartment(MonthlyExpenseDTO request)

@@ -11,14 +11,13 @@ namespace PaparaBootcampFinalHomework.Models.Users
         public string? Email { get; set; }
         public string? PhoneNumber { get; set; }
 
-        public ICollection<Payment> Payments { get; set; }
+        public ICollection<Payment>? Payments { get; set; }
        // [ForeignKey("PaymentId")]
        // public Payment? Payment { get; set; }
     
        //[ForeignKey("ApartmentId")]
-       public Apartment Apartment { get; set; }
+       public Apartment? Apartment { get; set; }
       
        // public int ApartmentId { get; set; }
-
      } 
 }

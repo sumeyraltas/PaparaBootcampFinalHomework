@@ -14,16 +14,21 @@ namespace Models.Shared
         public static void DIContainers(this IServiceCollection services)
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             services.AddScoped<IApartmentRepository, ApartmentRepository>();
             services.AddScoped<IResidentRepository, ResidentRepository>();
             services.AddScoped<IAdminRepository, AdminRepository>();
             services.AddScoped<IPaymentRepository, PaymentRepository>();
+            services.AddScoped<IMonthlyExpenseRepository, MonthlyExpenseRepository>();
+
             services.AddScoped<IApartmentService, ApartmentService>();
             services.AddScoped<IResidentService, ResidentService>();
             services.AddScoped<IAdminService, AdminService>();
             services.AddScoped<IPaymentService, PaymentService>();
-            services.AddScoped<IMonthlyExpenseRepository, MonthlyExpenseRepository>();
             services.AddScoped<IMonthlyExpenseService, MonthlyExpenseService>();
+            services.AddScoped<IIdentityService, IdentityService>();
+            services.AddScoped<ITokenService, TokenService>();
+
         }
     }
 }

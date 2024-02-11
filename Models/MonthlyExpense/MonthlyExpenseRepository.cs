@@ -1,4 +1,5 @@
-﻿using PaparaBootcampFinalHomework.Models.Payments;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using PaparaBootcampFinalHomework.Models.Payments;
 using PaparaBootcampFinalHomework.Shared;
 
 namespace PaparaBootcampFinalHomework.Models.MonthlyExpense
@@ -17,22 +18,22 @@ namespace PaparaBootcampFinalHomework.Models.MonthlyExpense
 
             return monthlyExpense;
         }
-        public List<Payment> GetAllGasBills()
+        public List<MonthlyExpense> GetAllGasBills()
         {
-            return _context.Payments
-                .Where(p => p.MonthlyExpense != null && p.MonthlyExpense.GasBill > 0)
+            return _context.MonthlyExpenses
+                .Where(p =>  p.GasBill > 0)
                 .ToList();
         }
-        public List<Payment> GetAllElectricityBill()
+        public List<MonthlyExpense> GetAllElectricityBill()
         {
-            return _context.Payments
-                .Where(p => p.MonthlyExpense != null && p.MonthlyExpense.ElectricityBill > 0)
+            return _context.MonthlyExpenses
+                .Where(p => p.ElectricityBill > 0)
                 .ToList();
         }
-        public List<Payment> GetAllWaterBill()
+        public List<MonthlyExpense> GetAllWaterBill()
         {
-            return _context.Payments
-                .Where(p => p.MonthlyExpense != null && p.MonthlyExpense.WaterBill > 0)
+            return _context.MonthlyExpenses
+                .Where(p => p.WaterBill > 0)
                 .ToList();
         }
     }

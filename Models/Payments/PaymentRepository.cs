@@ -1,4 +1,5 @@
-﻿using PaparaBootcampFinalHomework.Shared;
+﻿using Models.Shared.ResponseDto;
+using PaparaBootcampFinalHomework.Shared;
 
 namespace PaparaBootcampFinalHomework.Models.Payments
 {
@@ -20,10 +21,21 @@ namespace PaparaBootcampFinalHomework.Models.Payments
         }
 
         public List<Payment> GetUserPayments()
-        {    
+        {
             return _context.Payments.ToList();
 
         }
+        public List<Payment> GetResidentPayments(int residentId)
+        {
+            return _context.Payments
+                .Where(p => p.ResidentId == residentId)
+                .ToList();
+        }
+        public ResponseDto<int> MakePayment(Payment request)
+        {
+            _context.Payments.Add(request);
 
+            return ResponseDto<int>.Success(request.Id);
+        }
     }
 }

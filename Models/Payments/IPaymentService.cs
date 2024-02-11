@@ -11,6 +11,7 @@ namespace PaparaBootcampFinalHomework.Models.Payments
         List<PaymentDTO> GetMonthlyBillsByMonth(int billingMonth);
         List<PaymentDTO> GetUserPayments();
         ResponseDto<int> AddMonthlyBillsForAllApartments(PaymentDTO request);
-      
+        List<ResistentPaymentsDTO> GetResidentPayments(int id);
+        ResponseDto<string> MakePayment(ResistentPaymentsDTO request);
     }
 }

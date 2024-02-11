@@ -13,7 +13,7 @@ namespace PaparaBootcampFinalHomework.Controllers
     {
         private readonly IResidentService _residentService = residentService;
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult AddResident(ResidentDTO userDto)
         {
@@ -24,7 +24,8 @@ namespace PaparaBootcampFinalHomework.Controllers
             }
             return Ok(response);
         }
-        //[Authorize(Roles = "Admin")]
+
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public IActionResult UpdateResident( ResidentDTO userDto)
         {
@@ -32,7 +33,7 @@ namespace PaparaBootcampFinalHomework.Controllers
 
             return Ok();
         }
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public IActionResult DeleteResident(int id)
         {
@@ -40,6 +41,7 @@ namespace PaparaBootcampFinalHomework.Controllers
             return Ok();
         }
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetAllResident()
         {
             var response = _residentService.GetAllUser();
@@ -50,10 +52,10 @@ namespace PaparaBootcampFinalHomework.Controllers
             return Ok(response);
         }
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetByIdResident(int id)
         {
             return Ok(_residentService.GetByIdUser(id));
         }
-
     }
 }

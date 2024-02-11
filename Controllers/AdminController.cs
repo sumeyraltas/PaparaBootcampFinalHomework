@@ -1,15 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PaparaBootcampFinalHomework.Models.Tokens;
-using TokenService = PaparaBootcampFinalHomework.Models.Tokens.TokenService;
 using PaparaBootcampFinalHomework.Models.Tokens.DTOs;
 using PaparaBootcampFinalHomework.Models.Admin.DTOs;
+using Microsoft.AspNetCore.Authorization;
 namespace PaparaBootcampFinalHomework.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class AdminController(IdentityService identityService, TokenService tokenService) : ControllerBase
+    public class AdminController(IIdentityService identityService, ITokenService tokenService) : ControllerBase
     {
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateAdmin(AdminCreateRequestDto request)
         {
             var response = await identityService.CreateAdmin(request);
@@ -36,6 +37,7 @@ namespace PaparaBootcampFinalHomework.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AssignRoleToUser(RoleCreateRequestDto request)
         {
             var response = await identityService.CreateRole(request);
