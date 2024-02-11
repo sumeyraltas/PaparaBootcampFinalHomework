@@ -7,5 +7,6 @@
         public DateTime PaymentDate { get; set; }
         public string PaymentType { get; set; } 
         public decimal Amount { get; set; }
+        public int Month { get;  set; }
     }
 }

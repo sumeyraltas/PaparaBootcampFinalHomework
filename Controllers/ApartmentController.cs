@@ -42,5 +42,21 @@ namespace PaparaBootcampFinalHomework.Controllers
         {
             return Ok(_apartmentService.GetByIdApartment(id));
         }
+        [HttpGet("\"get-apartment-resident-ıd\"{id}")]
+        //[Authorize(Roles = "Admin")]
+        public IActionResult GetApartmentByResidentId(int id)
+        {
+            return Ok(_apartmentService.GetApartmentByResidentId(id));
+        }
+        [HttpPost("assign-resident")]
+        public IActionResult AssignResidentToApartment(AssignResidentRequestDTO assignResidentRequestDTO)
+        {
+            var response = _apartmentService.AssignResident(assignResidentRequestDTO.ApartmentId, assignResidentRequestDTO.ResidentId);
+            if (response.AnyError)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
     }
 }

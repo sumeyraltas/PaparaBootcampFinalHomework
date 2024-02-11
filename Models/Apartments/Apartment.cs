@@ -16,6 +16,6 @@ namespace PaparaBootcampFinalHomework.Models.Apartments
         public int? ResidentId { get; set; }
         [ForeignKey("ResidentId")]
         public Resident? Resident { get; set; }
-          public ICollection<Payment>? Payments { get; set; }
+        public ICollection<Payment>? Payments { get; set; }
     }
 }

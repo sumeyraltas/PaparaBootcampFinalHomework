@@ -6,9 +6,10 @@ using PaparaBootcampFinalHomework.Models.Users;
 
 namespace PaparaBootcampFinalHomework.Models.Apartments
 {
-    public class ApartmentService(IApartmentRepository apartmentRepository, IMapper mapper, IUnitOfWork unitOfWork) : IApartmentService
+    public class ApartmentService(IApartmentRepository apartmentRepository, IMapper mapper, IResidentRepository userRepository, IUnitOfWork unitOfWork) : IApartmentService
     {
         private readonly IApartmentRepository _apartmentRepository = apartmentRepository;
+        private readonly IResidentRepository _userRepository = userRepository;
         private readonly IMapper _mapper = mapper;
         private readonly IUnitOfWork _unitOfWork = unitOfWork; 
 
@@ -33,6 +34,15 @@ namespace PaparaBootcampFinalHomework.Models.Apartments
             {
                 return ResponseDto<int>.Fail("ApartmentRepository is not initialized.");
             }
+      
+                var resident = _userRepository.GetByIdUser(request.ResidentId);
+                if (resident == null)
+                {
+                    return ResponseDto<int>.Fail("Invalid ResidentId provided.");
+                }
+
+                apartment.Resident = resident;
+           
             _apartmentRepository.AddApartment(apartment);
 
             _unitOfWork.Commit();
@@ -93,6 +103,8 @@ namespace PaparaBootcampFinalHomework.Models.Apartments
             if (apartment == null)
                 return ResponseDto<int>.Fail("Apartment number is not valid.");
 
+            apartment.ApartmentNumber = request.ApartmentNumber;
+            apartment.ResidentId = request.ResidentId;
 
             _apartmentRepository.UpdateApartment(apartment);
 
@@ -100,6 +112,30 @@ namespace PaparaBootcampFinalHomework.Models.Apartments
             transaction.Commit();
 
             return ResponseDto<int>.Success((int)apartment.Id);
+        }
+        public ResponseDto<ApartmentDTO> GetApartmentByResidentId(int userId)
+        {
+            using var transaction = _unitOfWork.BeginTransaction();
+
+            var apartment = _apartmentRepository.GetApartmentByResidentId(userId);
+            var apartmentDto = _mapper.Map<ApartmentDTO>(apartment);
+
+            _unitOfWork.Commit();
+            transaction.Commit();
+
+            return ResponseDto<ApartmentDTO>.Success(apartmentDto);
+        }
+        public ResponseDto<string> AssignResident(int apartmentId, int residentId)
+        {
+            var apartment = _apartmentRepository.GetByIdApartment(apartmentId);
+            if (apartment == null)
+            {
+                return ResponseDto<string>.Fail("");
+            }
+            apartment.ResidentId = residentId;
+            _apartmentRepository.UpdateApartment(apartment);
+
+            return ResponseDto<string>.Success("");
         }
     }
 }

@@ -93,6 +93,27 @@ namespace PaparaBootcampFinalHomework.Models.Payments
 
         public ResponseDto<string> MakePayment(ResistentPaymentsDTO request)
         {
+            using var transaction = _unitOfWork.BeginTransaction();
+
+            foreach (var apartmentId in apartmentRepository.GetAllApartmentIds()) // Assuming you have a method to get all apartment IDs
+            {
+                var payment = new Payment
+                {
+                    ApartmentId = apartmentId,
+                    ResidentId = request.ResidentId,
+                    CardCash = request.CardCash,
+                    PaymentDate = DateTime.Now,
+                    PaymentType = request.PaymentType,
+                    Amount = request.Amount,
+                    Month = request.Month
+                };
+
+                _paymentRepository.MakePayment(payment);
+            }
+
+            _unitOfWork.Commit();
+            transaction.Commit();
+
             return ResponseDto<string>.Success("");
         }
 

@@ -6,7 +6,7 @@ namespace PaparaBootcampFinalHomework.Models.Payments
     public class Payment
     {
         public int Id { get; set; }
-        public required int ApartmentId { get; set; }
+        public int? ApartmentId { get; set; }
         public Apartment? Apartment { get; set; }
         public Resident? Resident { get; set; }
         public int ResidentId { get; set; }

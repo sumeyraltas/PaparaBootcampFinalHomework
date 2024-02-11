@@ -1,13 +1,16 @@
 ﻿using AutoMapper;
 using Models.Shared.ResponseDto;
+using PaparaBootcampFinalHomework.Models.Apartments;
+using PaparaBootcampFinalHomework.Models.Apartments.DTOs;
 using PaparaBootcampFinalHomework.Models.Residents.DTOs;
 using PaparaBootcampFinalHomework.Models.UnitOfWorks;
 
 namespace PaparaBootcampFinalHomework.Models.Users
 {
-    public class ResidentService(IResidentRepository userRepository, IMapper mapper, IUnitOfWork unitOfWork) : IResidentService
+    public class ResidentService(IResidentRepository userRepository, IMapper mapper, IUnitOfWork unitOfWork,IApartmentRepository apartmentRepository) : IResidentService
         {
             private readonly IResidentRepository _userRepository = userRepository;
+        private readonly IApartmentRepository _apartmentRepository = apartmentRepository;
             private readonly IMapper _mapper = mapper;
             private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
@@ -74,7 +77,8 @@ namespace PaparaBootcampFinalHomework.Models.Users
                 _unitOfWork.Commit();
                 transaction.Commit();
             }
-        }
+   
+    }
     
 
 }

@@ -38,5 +38,9 @@ namespace PaparaBootcampFinalHomework.Models.Apartments
         {
             _context.Apartments.Update(apartment);
         }
+        public Apartment GetApartmentByResidentId(int residentId)
+        {
+            return _context.Apartments.FirstOrDefault(a => a.ResidentId == residentId);
+        }
     }
 }

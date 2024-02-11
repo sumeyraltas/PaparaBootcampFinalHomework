@@ -8,7 +8,8 @@ namespace PaparaBootcampFinalHomework.Models.Apartments
         ApartmentDTO GetByIdApartment(int id);
         void DeleteApartment(int id);
         ResponseDto<int> AddApartment(ApartmentDTO request);
-
         ResponseDto<int> UpdateApartment(ApartmentDTO request);
+         ResponseDto<ApartmentDTO> GetApartmentByResidentId(int userId);
+        ResponseDto<string> AssignResident(int apartmentId, int residentId);
     }
 }

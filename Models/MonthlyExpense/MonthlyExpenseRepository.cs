@@ -15,7 +15,6 @@ namespace PaparaBootcampFinalHomework.Models.MonthlyExpense
         public MonthlyExpense AddMonthlyBills(MonthlyExpense monthlyExpense)
         {
             _context.MonthlyExpenses.Add(monthlyExpense);
-
             return monthlyExpense;
         }
         public List<MonthlyExpense> GetAllGasBills()
